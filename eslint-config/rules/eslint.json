@@ -180,15 +180,7 @@
     "no-unsafe-negation": 2,
     "no-unused-expressions": 2,
     "no-unused-labels": 2,
-    "no-unused-vars": [
-      2,
-      {
-        "args": "after-used",
-        "argsIgnorePattern": "^e$",
-        "ignoreRestSiblings": true,
-        "vars": "all"
-      }
-    ],
+    "no-unused-vars": 0,
     "no-useless-call": 2,
     "no-useless-catch": 2,
     "no-useless-concat": 2,
@@ -205,7 +197,7 @@
     "operator-assignment": 2,
     "radix": 2,
     "require-jsdoc": [
-      2,
+      0,
       {
         "require": {
           "ArrowFunctionExpression": true,

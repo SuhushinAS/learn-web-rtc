@@ -22,7 +22,15 @@
     "@typescript-eslint/no-namespace": 2,
     "@typescript-eslint/no-non-null-assertion": 2,
     "@typescript-eslint/no-this-alias": 2,
-    "@typescript-eslint/no-unused-vars": 0,
+    "@typescript-eslint/no-unused-vars": [
+      2,
+      {
+        "args": "after-used",
+        "argsIgnorePattern": "^e$",
+        "ignoreRestSiblings": true,
+        "vars": "all"
+      }
+    ],
     "@typescript-eslint/no-use-before-define": 2,
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/prefer-namespace-keyword": 2,

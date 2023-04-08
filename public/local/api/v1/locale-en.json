@@ -4,5 +4,12 @@
   "example.list.title": "Example list",
   "footer.power.title": "Powered by",
   "home.description": "Home description",
-  "home.title": "Home"
+  "home.title": "Home",
+  "webRTC.control.connectButton": "Connect",
+  "webRTC.control.disconnectButton": "Disconnect",
+  "webRTC.message.label": "Enter a message:",
+  "webRTC.message.placeholder": "Message text",
+  "webRTC.message.sendButton": "Send",
+  "webRTC.receive.title": "Messages received:",
+  "webRTC.title": "WebRTC"
 }

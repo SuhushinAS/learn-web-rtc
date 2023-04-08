@@ -4,5 +4,12 @@
   "example.list.title": "Пример списка",
   "footer.power.title": "Сделано в",
   "home.description": "Описание главной",
-  "home.title": "Главная"
+  "home.title": "Главная",
+  "webRTC.control.connectButton": "Подключить",
+  "webRTC.control.disconnectButton": "Отключить",
+  "webRTC.message.label": "Введите сообщение:",
+  "webRTC.message.placeholder": "Текст сообщения",
+  "webRTC.message.sendButton": "Отправить",
+  "webRTC.receive.title": "Полученные сообщения:",
+  "webRTC.title": "WebRTC"
 }

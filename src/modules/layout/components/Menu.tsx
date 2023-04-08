@@ -1,3 +1,4 @@
+import {appPath} from 'app/constants';
 import {MenuItem} from 'modules/layout/components/MenuItem';
 import React from 'react';
 import './Menu.less';
@@ -25,7 +26,12 @@ export class Menu extends React.Component<TMenuProps> {
       {
         id: 'example',
         name: 'Example',
-        path: '/example',
+        path: appPath.example,
+      },
+      {
+        id: 'webRTC',
+        name: 'WebRTC',
+        path: appPath.webRTC,
       },
     ],
   };
