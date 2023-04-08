@@ -10,20 +10,32 @@ type TProps = {
   sendReadyState: RTCDataChannelState;
 };
 
-export class ControlComponent extends React.Component<TProps> {
+type TState = {
+  canConnect: boolean;
+  canDisconnect: boolean;
+};
+
+export class ControlComponent extends React.Component<TProps, TState> {
   getMessage = getMessage(this.props.intl);
   msg = {
     connect: this.getMessage('webRTC.control.connectButton'),
     disconnect: this.getMessage('webRTC.control.disconnectButton'),
   };
 
+  static getDerivedStateFromProps({sendReadyState}: TProps): TState {
+    return {
+      canConnect: 'closed' === sendReadyState,
+      canDisconnect: 'open' === sendReadyState,
+    };
+  }
+
   render() {
     return (
       <div>
-        <button disabled={'closed' !== this.props.sendReadyState} onClick={this.props.onConnect} type="button">
+        <button disabled={!this.state.canConnect} onClick={this.props.onConnect} type="button">
           {this.msg.connect}
         </button>
-        <button disabled={'open' !== this.props.sendReadyState} onClick={this.props.onDisconnect} type="button">
+        <button disabled={!this.state.canDisconnect} onClick={this.props.onDisconnect} type="button">
           {this.msg.disconnect}
         </button>
       </div>

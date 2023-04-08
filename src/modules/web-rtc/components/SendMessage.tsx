@@ -28,7 +28,7 @@ export class SendMessageComponent extends React.Component<TProps, TState> {
     message: '',
   };
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props: TProps, state: TState): TState {
     const canInput = 'open' === props.sendReadyState;
     const canSubmit = canInput && '' !== state.message;
 
