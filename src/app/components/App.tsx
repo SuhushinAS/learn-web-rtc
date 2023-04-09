@@ -16,7 +16,7 @@ export const App = () => {
       <Routes>
         <Route element={<ExampleContainer />} path={`${appPath.example}/*`} />
         <Route element={<Home />} path={appPath.home} />
-        <Route element={<WebRTC />} path={appPath.webRTC} />
+        <Route element={<WebRTC />} path={`${appPath.webRTC}/*`} />
       </Routes>
     </Layout>
   );

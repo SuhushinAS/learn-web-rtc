@@ -1,4 +1,4 @@
-export const examplePaths = {
+export const examplePath = {
   item: '/:id',
   list: '/',
 };

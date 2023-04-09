@@ -43,7 +43,7 @@ export const ExampleList = () => {
           <tr key={item[exampleIdKey]}>
             {fields.map((field) => (
               <td className="ExampleList__Cell" key={field}>
-                <Link to={`${appPath.example}/${item[exampleIdKey]}`}>{item[field]}</Link>
+                <Link to={`${appPath.example}/${item[exampleIdKey]}`}>{`${item[field]}`}</Link>
               </td>
             ))}
           </tr>

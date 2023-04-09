@@ -5,7 +5,7 @@ import {ExampleItem} from 'modules/example/components/ExampleItem';
 import {ExampleItemPageHead} from 'modules/example/components/ExampleItemPageHead';
 import {ExampleList} from 'modules/example/components/ExampleList';
 import {ExamplePageHead} from 'modules/example/components/ExamplePageHead';
-import {examplePaths} from 'modules/example/constants';
+import {examplePath} from 'modules/example/constants';
 import {Message} from 'modules/locale/components/Message';
 import React from 'react';
 import {connect} from 'react-redux';
@@ -49,13 +49,13 @@ export class Example extends React.Component<TProps> {
                 title={<Message id="example.list.title" />}
               />
             }
-            path={examplePaths.list}
+            path={examplePath.list}
           />
-          <Route element={<ExampleItemPageHead />} path={examplePaths.item} />
+          <Route element={<ExampleItemPageHead />} path={examplePath.item} />
         </Routes>
         <Routes>
-          <Route element={<ExampleList />} path={examplePaths.list} />
-          <Route element={<ExampleItem />} path={examplePaths.item} />
+          <Route element={<ExampleList />} path={examplePath.list} />
+          <Route element={<ExampleItem />} path={examplePath.item} />
         </Routes>
       </div>
     );
