@@ -28,24 +28,18 @@ export class Local extends React.Component<TProps, TState> {
   private channel: RTCDataChannel = this.local.createDataChannel('channel');
 
   statusChange = (e) => {
-    this.setState({
-      readyState: e.currentTarget.readyState,
-    });
+    this.setState({readyState: e.currentTarget.readyState});
   };
 
   // eslint-disable-next-line no-undef
   offerChange = (offer: RTCSessionDescriptionInit) => {
     this.local.setLocalDescription(offer);
-    this.setState({
-      offer: JSON.stringify(offer),
-    });
+    this.setState({offer: JSON.stringify(offer)});
   };
 
   localCandidateChange = ({candidate}: RTCPeerConnectionIceEvent) => {
     if (candidate) {
-      this.setState({
-        localCandidate: JSON.stringify(candidate.toJSON()),
-      });
+      this.setState({localCandidate: JSON.stringify(candidate.toJSON())});
     }
   };
 
@@ -67,15 +61,11 @@ export class Local extends React.Component<TProps, TState> {
   };
 
   answerChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      answer: e.currentTarget.value,
-    });
+    this.setState({answer: e.currentTarget.value});
   };
 
   remoteCandidateChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      remoteCandidate: e.currentTarget.value,
-    });
+    this.setState({remoteCandidate: e.currentTarget.value});
   };
 
   remoteCandidateSet = () => {
@@ -107,19 +97,16 @@ export class Local extends React.Component<TProps, TState> {
   };
 
   messageReceive = (e: MessageEvent) => {
-    this.setState((state) => ({
-      ...state,
-      messages: [...state.messages, e.data],
-    }));
+    this.setState((state) => ({...state, messages: [...state.messages, e.data]}));
   };
 
   render() {
     const {answer, offer, localCandidate, readyState, remoteCandidate} = this.state;
     return (
       <div>
-        <h4>
+        <h5>
           <Message id="webRTC.local.title" />
-        </h4>
+        </h5>
         <div>
           <button onClick={this.offerCreate} type="button">
             <Message id="webRTC.offer.create" />

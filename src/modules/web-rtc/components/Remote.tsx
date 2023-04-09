@@ -30,9 +30,7 @@ export class Remote extends React.Component<TProps, TState> {
   private channel: RTCDataChannel = this.remote.createDataChannel('channel');
 
   offerChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      offer: e.currentTarget.value,
-    });
+    this.setState({offer: e.currentTarget.value});
   };
 
   offerGet() {
@@ -46,16 +44,11 @@ export class Remote extends React.Component<TProps, TState> {
   }
 
   messageReceive = (e: MessageEvent) => {
-    this.setState((state) => ({
-      ...state,
-      messages: [...state.messages, e.data],
-    }));
+    this.setState((state) => ({...state, messages: [...state.messages, e.data]}));
   };
 
   statusChange = (e) => {
-    this.setState({
-      readyState: e.currentTarget.readyState,
-    });
+    this.setState({readyState: e.currentTarget.readyState});
   };
 
   remoteDataChannel = (e: RTCDataChannelEvent) => {
@@ -68,9 +61,7 @@ export class Remote extends React.Component<TProps, TState> {
 
   remoteCandidateChange = ({candidate}: RTCPeerConnectionIceEvent) => {
     if (candidate) {
-      this.setState({
-        remoteCandidate: JSON.stringify(candidate.toJSON()),
-      });
+      this.setState({remoteCandidate: JSON.stringify(candidate.toJSON())});
     }
   };
 
@@ -108,9 +99,7 @@ export class Remote extends React.Component<TProps, TState> {
   };
 
   localCandidateChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      localCandidate: e.currentTarget.value,
-    });
+    this.setState({localCandidate: e.currentTarget.value});
   };
 
   localCandidateSet = () => {
@@ -127,9 +116,9 @@ export class Remote extends React.Component<TProps, TState> {
     const {answer, localCandidate, offer, readyState, remoteCandidate} = this.state;
     return (
       <div>
-        <h4>
+        <h5>
           <Message id="webRTC.remote.title" />
-        </h4>
+        </h5>
         <div>
           <label htmlFor="offer">
             <Message id="webRTC.offer.title" />
