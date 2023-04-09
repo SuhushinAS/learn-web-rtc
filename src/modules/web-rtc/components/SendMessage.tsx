@@ -6,7 +6,7 @@ type TProps = {
   intl: IntlShape;
   onSend: (message: string) => void;
   // eslint-disable-next-line no-undef
-  sendReadyState: RTCDataChannelState;
+  readyState: RTCDataChannelState;
 };
 
 type TState = {
@@ -29,7 +29,7 @@ export class SendMessageComponent extends React.Component<TProps, TState> {
   };
 
   static getDerivedStateFromProps(props: TProps, state: TState): TState {
-    const canInput = 'open' === props.sendReadyState;
+    const canInput = 'open' === props.readyState;
     const canSubmit = canInput && '' !== state.message;
 
     return {

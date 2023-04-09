@@ -16,7 +16,7 @@ export class ReceiveComponent extends React.Component<TProps> {
   render() {
     return (
       <div>
-        <h6>{this.getMessage('webRTC.receive.title')}</h6>
+        <h6>{this.getMessage('webRTC.message.received')}</h6>
         <ul>
           {this.props.messages.map((message, index) => (
             <li key={index}>{message}</li>
