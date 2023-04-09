@@ -6,23 +6,23 @@ import React, {ChangeEvent} from 'react';
 type TProps = unknown;
 
 type TState = {
-  answer: string;
-  localCandidate: string;
+  // eslint-disable-next-line no-undef
+  answer?: RTCSessionDescriptionInit;
+  // eslint-disable-next-line no-undef
+  localCandidate?: RTCIceCandidateInit;
   messages: string[];
-  offer: string;
+  // eslint-disable-next-line no-undef
+  offer?: RTCSessionDescriptionInit;
   // eslint-disable-next-line no-undef
   readyState: RTCDataChannelState;
-  remoteCandidate: string;
+  // eslint-disable-next-line no-undef
+  remoteCandidate?: RTCIceCandidateInit;
 };
 
 export class Local extends React.Component<TProps, TState> {
   state: TState = {
-    answer: JSON.stringify(null),
-    localCandidate: JSON.stringify(null),
     messages: [],
-    offer: JSON.stringify(null),
     readyState: 'closed',
-    remoteCandidate: JSON.stringify(null),
   };
   private local: RTCPeerConnection = new RTCPeerConnection();
   private channel: RTCDataChannel = this.local.createDataChannel('channel');
@@ -34,12 +34,12 @@ export class Local extends React.Component<TProps, TState> {
   // eslint-disable-next-line no-undef
   offerChange = (offer: RTCSessionDescriptionInit) => {
     this.local.setLocalDescription(offer);
-    this.setState({offer: JSON.stringify(offer)});
+    this.setState({offer});
   };
 
   localCandidateChange = ({candidate}: RTCPeerConnectionIceEvent) => {
     if (candidate) {
-      this.setState({localCandidate: JSON.stringify(candidate.toJSON())});
+      this.setState({localCandidate: candidate.toJSON()});
     }
   };
 
@@ -47,7 +47,7 @@ export class Local extends React.Component<TProps, TState> {
     console.log({e, log: 'offerCreateError'});
   };
 
-  offerCreate = () => {
+  connectionCreate = () => {
     this.local = new RTCPeerConnection();
 
     this.channel = this.local.createDataChannel('channel');
@@ -60,35 +60,24 @@ export class Local extends React.Component<TProps, TState> {
     this.local.createOffer().then(this.offerChange).catch(this.offerCreateError);
   };
 
-  answerChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({answer: e.currentTarget.value});
-  };
-
-  remoteCandidateChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({remoteCandidate: e.currentTarget.value});
-  };
-
-  remoteCandidateSet = () => {
-    // eslint-disable-next-line no-undef
-    const candidate: RTCIceCandidateInit = JSON.parse(this.state.remoteCandidate);
-    this.local.addIceCandidate(new RTCIceCandidate(candidate));
-  };
-
-  answerGet() {
-    try {
-      return JSON.parse(this.state.answer);
-    } catch (e) {
-      console.log(e);
-    }
-
-    return null;
+  remoteChangeError(e) {
+    console.log({e, log: 'remoteChangeError'});
   }
 
-  answerSet = () => {
-    const answer = this.answerGet();
+  remoteChange = (event: ChangeEvent<HTMLInputElement>) => {
+    try {
+      this.setState(JSON.parse(event.currentTarget.value));
+    } catch (error) {
+      this.remoteChangeError(error);
+    }
+  };
 
-    if (answer) {
+  remoteSet = () => {
+    const {answer, remoteCandidate} = this.state;
+
+    if (answer && remoteCandidate) {
       this.local.setRemoteDescription(answer);
+      this.local.addIceCandidate(remoteCandidate);
     }
   };
 
@@ -101,55 +90,33 @@ export class Local extends React.Component<TProps, TState> {
   };
 
   render() {
-    const {answer, offer, localCandidate, readyState, remoteCandidate} = this.state;
+    const {answer, localCandidate, offer, readyState, remoteCandidate} = this.state;
+    const local = JSON.stringify({localCandidate, offer});
+    const remote = JSON.stringify({answer, remoteCandidate});
+
     return (
       <div>
         <h5>
           <Message id="webRTC.local.title" />
         </h5>
         <div>
-          <button onClick={this.offerCreate} type="button">
-            <Message id="webRTC.offer.create" />
-          </button>
-        </div>
-        <div>
-          <label htmlFor="offer">
-            <Message id="webRTC.offer.title" />
+          <label htmlFor="local">
+            <Message id="webRTC.connection.title" />
           </label>
-          <input id="offer" name="offer" readOnly type="text" value={offer} />
+          <input id="local" name="local" readOnly type="text" value={local} />
         </div>
         <div>
-          <label htmlFor="answer">
+          <label htmlFor="remote">
             <Message id="webRTC.answer.title" />
           </label>
-          <input id="answer" name="answer" onChange={this.answerChange} type="text" value={answer} />
+          <input id="remote" name="remote" onChange={this.remoteChange} type="text" value={remote} />
         </div>
         <div>
-          <button onClick={this.answerSet} type="button">
+          <button disabled={Boolean(offer)} onClick={this.connectionCreate} type="button">
+            <Message id="webRTC.connection.create" />
+          </button>{' '}
+          <button disabled={'closed' !== readyState} onClick={this.remoteSet} type="button">
             <Message id="webRTC.answer.get" />
-          </button>
-        </div>
-        <div>
-          <label htmlFor="localCandidate">
-            <Message id="webRTC.candidate.title" />
-          </label>
-          <input id="localCandidate" name="localCandidate" readOnly type="text" value={localCandidate} />
-        </div>
-        <div>
-          <label htmlFor="remoteCandidate">
-            <Message id="webRTC.candidate.title" />
-          </label>
-          <input
-            id="remoteCandidate"
-            name="remoteCandidate"
-            onChange={this.remoteCandidateChange}
-            type="text"
-            value={remoteCandidate}
-          />
-        </div>
-        <div>
-          <button onClick={this.remoteCandidateSet} type="button">
-            <Message id="webRTC.candidate.setButton" />
           </button>
         </div>
         <div>

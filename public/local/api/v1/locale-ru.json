@@ -16,9 +16,9 @@
   "webRTC.message.placeholder": "Текст сообщения",
   "webRTC.message.received": "Полученные сообщения:",
   "webRTC.message.sendButton": "Отправить",
-  "webRTC.offer.create": "Создать Предложение",
-  "webRTC.offer.get": "Получить Предложение",
-  "webRTC.offer.title": "Предложение",
+  "webRTC.connection.create": "Создать",
+  "webRTC.connection.join": "Подключиться",
+  "webRTC.connection.title": "Подключение",
   "webRTC.remote.title": "Удалённый",
   "webRTC.title": "WebRTC"
 }
